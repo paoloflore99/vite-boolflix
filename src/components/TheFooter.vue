@@ -87,7 +87,7 @@ export default {
             </div>
         </div>
 
-        <div class="divisore"></div><!--non va cosi-->
+        <!-- <div class="divisore"><p>Lorem*100</p></div>non va cosi -->
 
         <div  class="container-mio bg p-4 slider">
             <div  class="d-flex flex-wrap">
@@ -136,30 +136,23 @@ p {
     color: white;
 }
 
-// .card-in-hover:hover {
-//     width: 400px;
-//     transition: 2s;
-// }
 
-// .carte {
-//     width: 200px;
-// }
 
 img {
     width: 100%;
 }
-// nav {
-//     position: absolute;
-// }
+
 
 .img-prova {
     width: 240px;
     height: 150px;
-    transition: 1s;
+    transition: 2s;
 }
 
-.img-prova {
-    transition: 2s;
+
+.img-prova:hover + .card-prova {
+    display: block;
+    width: 300px;
 }
 
 .sfondo {
@@ -186,25 +179,17 @@ a {
     background-color: red;
 }
 
-
 i {
     color: white;
 }
 
-.img-prova:hover + .card-prova {
-    display: block;
-    width: 300px;
-    
-    // position: absolute;  //per far mettere le cose sopra la foto 
-}
+
 
 .card-prova:hover {
     display: block;
 }
 
-.img-prova {
-    transition: 2s;
-}
+
 .card-prova {
     display: none;
 }
@@ -215,8 +200,6 @@ i {
     transition: 1s;
 
 }
-
-
 </style>
 
 
