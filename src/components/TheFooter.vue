@@ -3,13 +3,17 @@
 
 import axios from 'axios';
 
+
+
 export default {
     data() {
         return {
             searchQuery: '',
-            results: [],
+            movieResults: [],
+            tvResults: [],
             showInput: false,
-            tvResults: []
+            page: 1, 
+            
         };
     },
     methods: {
@@ -17,18 +21,23 @@ export default {
             axios.get("https://api.themoviedb.org/3/search/multi", {
                 params: {
                     api_key: "6f8cd03ff26e98213b7ba4fa3b12df8e",
-                    query: this.searchQuery
+                    query: this.searchQuery,
+                    page: this.page
                 }
             }).then(response => {
-                // this.results = response.data.results;
                 this.movieResults = response.data.results.filter(result => result.media_type === "movie");
                 this.tvResults = response.data.results.filter(result => result.media_type === "tv");
             }).catch(error => {
                 console.error(error);
             });
+        },
+        fetchMoreResults() {
+            this.page++; 
+            this.fetchData(); 
         }
     }
 }
+
 </script>
 <!-- <img src="../assets/img/film-radiobussola.jpg" alt=""> -->
 
@@ -72,7 +81,7 @@ export default {
                         <h5 class="card-title">Titolo {{ result.title || result.name }}</h5>
                         <p class="card-text">Titolo Originale {{ result.original_title || result.original_name }}</p>
                         <p>Lingua {{ result.original_language }}</p>
-                        <p>Voto {{ result.vote_average }}</p>
+                        <p>Voto {{ Math.floor(result.vote_average) }}</p>
                     </div>
                 </div>
             </div>
@@ -82,34 +91,26 @@ export default {
 
         <div  class="container-mio bg p-4 slider">
             <div  class="d-flex flex-wrap">
-                <div class="card sfondo border border-0 " style="width: 18rem;" v-for="result in tvResults" :key="result.id">
+                <div class="card sfondo border border-0 bg-dark" style="width: 18rem;" v-for="result in tvResults" :key="result.id">
                     <img class="card-in-hover card-img-top carte card-img-top img-prova" :src="'https://image.tmdb.org/t/p/w200' + result.poster_path"
                             alt="Poster">
                     <div class="card-body card-prova">
                         <h5 class="card-title">Titolo serie {{ result.title || result.name }}</h5>
                         <p class="card-text">Titolo Originale {{ result.original_title || result.original_name }}</p>
                         <p>Lingua {{ result.original_language }}</p>
-                        <p>Voto {{ result.vote_average }}</p>
+                        <p>Voto {{ Math.floor(result.vote_average) }}</p>
+                        <div>
+                        <i class="fa-solid fa-play"></i>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
 
-
-    <!-- <div class="container-mio bg p-4">
-        <div class="d-flex flex-wrap">
-            <div class="card sfondo p-2 " v-for="result in results" :key="result.id">
-                <img class="card-in-hover card-img-top carte card-img-top img-prova" :src="'https://image.tmdb.org/t/p/w200' + result.poster_path"
-                    alt="Poster">
-                <div class="card-body type">
-                    <h5 class="card-title text-white">Titolo {{ result.title || result.name }}</h5>
-                    <p class="card-text">Titolo Originale {{ result.original_title || result.original_name }}</p>
-                    <p>Lingua {{ result.original_language }}</p>
-                    <p>Voto {{ result.vote_average }}</p>
-                </div>
-            </div>
+        <div class="text-center p-2">
+            <button @click="fetchMoreResults">Carica più</button>
         </div>
-    </div> -->
 
     <!-- <div class="ratio ratio-16x9">
         <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube video" allowfullscreen></iframe>
@@ -127,7 +128,12 @@ export default {
 }
 .container-mio {
     width: 100%;
+    z-index: 1;
 
+}
+
+p {
+    color: white;
 }
 
 // .card-in-hover:hover {
@@ -146,6 +152,22 @@ img {
 //     position: absolute;
 // }
 
+.img-prova {
+    width: 240px;
+    height: 150px;
+    transition: 1s;
+}
+
+.img-prova {
+    transition: 2s;
+}
+
+.sfondo {
+    transition: 2s;
+}
+.container-mio {
+    transition: 2s;
+}
 
 a:hover {
     color: rgb(100, 99, 99);
@@ -185,6 +207,13 @@ i {
 }
 .card-prova {
     display: none;
+}
+
+.sfondo:hover {
+    z-index: 2;
+    margin: -100px;
+    transition: 1s;
+
 }
 
 
