@@ -14,12 +14,17 @@ export default {
 </script>
 
 <template>
-<TheFooter></TheFooter>
-<TheHeader></TheHeader>
 
+<body class="bg-black">
+ <TheFooter></TheFooter>
+<TheHeader></TheHeader>
+</body>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+
+</style>
 <!-- il mio api -->
 <!--   6f8cd03ff26e98213b7ba4fa3b12df8e    -->
 
